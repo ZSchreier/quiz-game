@@ -1,0 +1,25 @@
+body {
+  display: flex;
+  margin-left: 33%;
+  margin-right: 33%;
+  padding: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
+/* .timer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} */
+
+.invisible {
+  display: none;
+}
+
+.visible {
+  display: flex;
+}
