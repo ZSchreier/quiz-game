@@ -2,13 +2,14 @@
 var questionArea = document.querySelector(".question-area");
 var buttonArea = document.querySelector(".button-area");
 var timerArea = document.querySelector(".timer");
+// var divQuestion = document.querySelectorAll(".correct");
+// var divButton = document.querySelectorAll(".wrong");
 
 var startButton = document.querySelector(".start");
-var correctButton = document.querySelector(".correct")
-var wrongButton = document.querySelector(".wrong")
+var button = document.querySelectorAll("button");
 
 var questionCurrent = 0;
-var pickedQ;
+var pickedQ = null;
 var secondsLeft = 121;
 
 var highscore;
@@ -34,7 +35,7 @@ var questionOption = [
 function timer() {
   var timerInterval = setInterval(function() {
     secondsLeft--;
-    timerArea.textContent = `${secondsLeft} remaining...`;
+    timerArea.textContent = `${secondsLeft} seconds remaining...`;
 
     if(secondsLeft === 0) {
       clearInterval(timerInterval);
@@ -52,8 +53,10 @@ function questionPicker() {
 
 function questionPresent() {
   var divQuestion = document.createElement("div")
+  
+  divQuestion.textContent = pickedQ.question;
+  divQuestion.setAttribute("class", "new");
 
-  divQuestion.textContent = pickedQ.question
   questionArea.appendChild(divQuestion);
   
   for(x=0; x < pickedQ.answers.length; x++) {
@@ -64,18 +67,29 @@ function questionPresent() {
 function buttonMaker(answer, number) {
   var divButton = document.createElement("BUTTON");
   divButton.textContent = answer;
+  // divButton.setAttribute("class", "new");
   buttonArea.appendChild(divButton);
     
   if(number === pickedQ.correct){
-    divButton.setAttribute("class", "correct")
+    divButton.setAttribute("class", "correct");
   }else {
-    divButton.setAttribute("class", "wrong")
+    divButton.setAttribute("class", "wrong");
   }
 }
 
 function questionHide() {
-  divQuestion.setAttribute("class", "invisible");
-  divButton.setAttribute("class", "invisible");
+  if(pickedQ === null){
+    alert(`You have 120 seconds, good luck!`);
+  }else {
+    var oldQuestion = document.getElementsByClassName("new");
+    var oldWrongButton = document.getElementsByClassName("wrong");
+    var oldCorrectButton = document.getElementsByClassName("correct");
+    console.log(oldQuestion);
+  
+    oldQuestion.setAttribute("class", "invisible");
+    oldWrongButton.setAttribute("class", "invisible");
+    oldCorrectButton.setAttribute("class", "invisible");
+  }
 }
 
 function questionNext() {
@@ -88,7 +102,7 @@ function questionNext() {
 }
 
 function quizEnd() {
-  //tbd
+  alert(`This is the end for you my friend...`);
 }
 
 function init() {
@@ -106,13 +120,13 @@ startButton.addEventListener("click", function(){
   questionNext();
 })
 
-correctButton.addEventListener("click", function() {
-  questionNext();
-})
-
-wrongButton.addEventListener("click", function() {
-  secondsLeft = secondsLeft - 30;
-  questionNext();
+buttonArea.addEventListener("click", function() {
+  if(event.target.matches("button.correct")){
+    questionNext();
+  }else if(target.matches("button.wrong")){
+    secondsLeft = secondsLeft - 30;
+    questionNext();
+  }
 })
 
 init();

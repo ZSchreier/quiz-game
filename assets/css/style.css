@@ -8,7 +8,11 @@ body {
   align-items: center;
 }
 
-
+.new,
+.correct,
+.wrong {
+  display: flex;
+}
 
 /* .timer {
   display: flex;
