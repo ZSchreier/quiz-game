@@ -2,16 +2,16 @@
 var questionArea = document.querySelector(".question-area");
 var buttonArea = document.querySelector(".button-area");
 var timerArea = document.querySelector(".timer");
-// var divQuestion = document.querySelectorAll(".correct");
-// var divButton = document.querySelectorAll(".wrong");
 
 var startButton = document.querySelector(".start");
-var button = document.querySelectorAll("button");
+// var button = document.querySelectorAll("button");
 
+var gameOver = false;
 var questionCurrent = 0;
 var pickedQ = null;
 var secondsLeft = 121;
 
+var endScore;
 var highscore;
 
 var questionOption = [
@@ -39,7 +39,11 @@ function timer() {
 
     if(secondsLeft === 0) {
       clearInterval(timerInterval);
-      timerArea.textContent = `Time's up!`;
+      timerArea.setAttribute("class", "invisible");
+      quizEnd();
+    }else if(gameOver){
+      clearInterval(timerInterval);
+      timerArea.setAttribute("class", "invisible");
     }
 
   }, 1000);
@@ -65,9 +69,8 @@ function questionPresent() {
 }
 
 function buttonMaker(answer, number) {
-  var divButton = document.createElement("BUTTON");
+  var divButton = document.createElement("button");
   divButton.textContent = answer;
-  // divButton.setAttribute("class", "new");
   buttonArea.appendChild(divButton);
     
   if(number === pickedQ.correct){
@@ -81,19 +84,26 @@ function questionHide() {
   if(pickedQ === null){
     alert(`You have 120 seconds, good luck!`);
   }else {
-    var oldQuestion = document.getElementsByClassName("new");
-    var oldWrongButton = document.getElementsByClassName("wrong");
-    var oldCorrectButton = document.getElementsByClassName("correct");
-    console.log(oldQuestion);
-  
-    oldQuestion.setAttribute("class", "invisible");
-    oldWrongButton.setAttribute("class", "invisible");
-    oldCorrectButton.setAttribute("class", "invisible");
+    var oldQuestions = questionArea.querySelectorAll(".new");
+    var oldWrongButtons = buttonArea.querySelectorAll(".wrong");
+    var oldCorrectButtons = buttonArea.querySelectorAll(".correct");
+
+    hideLoop(oldQuestions);
+    hideLoop(oldWrongButtons);
+    hideLoop(oldCorrectButtons);
+  }
+}
+
+function hideLoop(htmlCollection){
+  for(x=0; x < htmlCollection.length; x++){
+    var htmlSpot = htmlCollection[x];
+    htmlSpot.setAttribute("class", "invisible");
   }
 }
 
 function questionNext() {
   if(questionCurrent > 2) {
+    questionHide();
     quizEnd();
   } else {
     questionHide();
@@ -103,6 +113,7 @@ function questionNext() {
 
 function quizEnd() {
   alert(`This is the end for you my friend...`);
+  gameOver = true;
 }
 
 function init() {
@@ -120,31 +131,13 @@ startButton.addEventListener("click", function(){
   questionNext();
 })
 
-buttonArea.addEventListener("click", function() {
+buttonArea.addEventListener("click", function(event) {
   if(event.target.matches("button.correct")){
     questionNext();
-  }else if(target.matches("button.wrong")){
-    secondsLeft = secondsLeft - 30;
+  }else if(event.target.matches("button.wrong")){
+    secondsLeft = secondsLeft - 20;
     questionNext();
   }
 })
 
-init();
-
-
-
-
-// append button to divTag
-// flag the correct button
-// maybe add an eventListener on quiz element and see if event target matches one of the answer buttons
-
-/*
-  When an answer button is clicked:
-    - Was the right one clicked?
-      - If not, display message and steal time
-      - If yes, display message
-    - Change the question counter (++)
-  Call function again (move to next question)
-
-
-*/
+// init();
