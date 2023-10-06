@@ -1,29 +1,46 @@
 body {
+  background-color: bisque;
   display: flex;
-  margin-left: 33%;
-  margin-right: 33%;
+  margin-left: 20px;
+  margin-right: 20px;
   padding: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  flex: 1 0 auto;
+}
+
+h1,
+.new,
+.correct,
+.wrong,
+.timer-area,
+.score-area,
+.restart-area,
+h2,
+h4,
+textarea {
+  display: flex;
+  margin-left: 20px;
+  margin-right: 20px;
+  width: 100%;
+  padding: 5px;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
 }
 
-.new,
+.start,
 .correct,
-.wrong {
-  display: flex;
+.wrong,
+.save-initials,
+.restart,
+.score-reset {
+  padding: 5px;
+  color: aliceblue;
+  background-color: darkmagenta;
 }
-
-/* .timer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-} */
 
 .invisible {
   display: none;
 }
-
-/* .visible {
-  display: flex;
-} */
