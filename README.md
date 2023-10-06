@@ -8,7 +8,7 @@ The main language used in this project was JavaScript, as the intent was to crea
 
 ## Preview
 
-The project can be found at [this address](https://github.io/ZSchreier/quiz-game).
+The project can be found at [this address](https://zschreier.github.io/quiz-game/).
 
 The following three screenshots show the start of the quiz, one of the questions, and an example scoreboard:
 ![An image of the starting display](./assets/start-page.png)
